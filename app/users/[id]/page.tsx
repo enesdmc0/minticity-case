@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { findLocalUserById } from "@/lib/local-users";
 import { fetchUserById } from "@/lib/users";
+import type { User } from "@/lib/types";
 
 type UserDetailPageProps = {
   params: Promise<{
@@ -16,9 +18,14 @@ const UserDetailPage = async ({ params }: UserDetailPageProps) => {
     notFound();
   }
 
-  const user = await fetchUserById({ id: userId });
+  let user: User | undefined;
+  try {
+    user = await fetchUserById({ id: userId });
+  } catch {
+    user = await findLocalUserById(userId);
+  }
 
-  if (!user?.id) {
+  if (!user) {
     notFound();
   }
 
