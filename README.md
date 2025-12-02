@@ -2,6 +2,8 @@
 
 Case study project built with Next.js 16, TypeScript, TailwindCSS.
 
+- API: https://jsonplaceholder.typicode.com/users
+
 ## Getting Started
 
 ```bash
