@@ -1,9 +1,14 @@
 import Link from 'next/link';
 import UsersTable from '@/components/users-table';
+import { getLocalUsers } from '@/lib/local-users';
 import { fetchUsers } from '@/lib/users';
 
 const Home = async () => {
-  const users = await fetchUsers();
+  const [remoteUsers, localUsers] = await Promise.all([
+    fetchUsers(),
+    getLocalUsers(),
+  ]);
+  const users = [...localUsers, ...remoteUsers];
 
   return (
     <main className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-12">
