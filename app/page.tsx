@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import UsersTable from '@/components/users-table';
+import SearchUsers from '@/components/search-users';
 import { getDeletedUserIds, getLocalUsers } from '@/lib/local-users';
 import { fetchUsers } from '@/lib/users';
 
@@ -27,7 +27,7 @@ const Home = async () => {
         </Link>
       </header>
 
-      <UsersTable users={users} />
+      <SearchUsers users={users} />
     </main>
   );
 };
