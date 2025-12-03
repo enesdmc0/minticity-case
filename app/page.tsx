@@ -1,14 +1,16 @@
 import Link from 'next/link';
 import UsersTable from '@/components/users-table';
-import { getLocalUsers } from '@/lib/local-users';
+import { getDeletedUserIds, getLocalUsers } from '@/lib/local-users';
 import { fetchUsers } from '@/lib/users';
 
 const Home = async () => {
-  const [remoteUsers, localUsers] = await Promise.all([
+  const [remoteUsers, localUsers, deletedIds] = await Promise.all([
     fetchUsers(),
     getLocalUsers(),
+    getDeletedUserIds(),
   ]);
-  const users = [...localUsers, ...remoteUsers];
+  const remoteFiltered = remoteUsers.filter((user) => !deletedIds.includes(user.id));
+  const users = [...localUsers, ...remoteFiltered];
 
   return (
     <main className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-12">

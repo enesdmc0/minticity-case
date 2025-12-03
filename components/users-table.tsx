@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import DeleteUserButton from './delete-user-button';
 import { User } from '@/lib/types';
 
 type UsersTableProps = {
@@ -29,13 +30,14 @@ const UsersTable = ({ users }: UsersTableProps) => {
               <td className="px-4 py-3">{user.email}</td>
               <td className="px-4 py-3">{user.phone}</td>
               <td className="px-4 py-3">{user.company.name}</td>
-              <td className="px-4 py-3 text-right">
+              <td className="px-4 py-3 text-right flex items-center justify-end gap-2">
                 <Link
                   href={`/users/${user.id}`}
                   className="rounded border border-slate-200 px-3 py-1 text-xs font-medium text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
                 >
                   Details
                 </Link>
+                <DeleteUserButton userId={user.id} />
               </td>
             </tr>
           ))}
