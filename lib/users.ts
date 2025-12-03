@@ -1,7 +1,5 @@
-import { User } from './types';
-
-const API_BASE_URL = 'https://jsonplaceholder.typicode.com';
-const USERS_ENDPOINT = `${API_BASE_URL}/users`;
+import { USERS_ENDPOINT, ERROR_MESSAGES } from "./constants";
+import { User } from "./types";
 
 const defaultFetchOptions: RequestInit = {
   // Always fetch fresh data for SSR pages.
@@ -19,7 +17,7 @@ export const fetchUsers = async ({ signal }: FetchUsersParams = {}): Promise<Use
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch users');
+    throw new Error(ERROR_MESSAGES.fetchUsers);
   }
 
   const data: User[] = await response.json();
@@ -38,7 +36,7 @@ export const fetchUserById = async ({ id, signal }: FetchUserParams): Promise<Us
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch user');
+    throw new Error(ERROR_MESSAGES.fetchUser);
   }
 
   const data: User = await response.json();

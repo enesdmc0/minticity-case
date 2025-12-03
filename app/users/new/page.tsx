@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import CreateUserForm from './form';
+import UserForm from '@/components/user-form';
 
 const CreateUserPage = () => {
   return (
@@ -16,7 +16,7 @@ const CreateUserPage = () => {
         </h1>
       </div>
 
-      <CreateUserForm />
+      <UserForm mode="create" />
     </main>
   );
 };
