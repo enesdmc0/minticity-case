@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { findLocalUserById } from "@/lib/local-users";
+import { findLocalUserById, getDeletedUserIds } from "@/lib/local-users";
 import { fetchUserById } from "@/lib/users";
 import type { User } from "@/lib/types";
 
@@ -22,6 +22,10 @@ const UserDetailPage = async ({ params }: UserDetailPageProps) => {
   try {
     user = await fetchUserById({ id: userId });
   } catch {
+    const deletedIds = await getDeletedUserIds();
+    if (deletedIds.includes(userId)) {
+      notFound();
+    }
     user = await findLocalUserById(userId);
   }
 
